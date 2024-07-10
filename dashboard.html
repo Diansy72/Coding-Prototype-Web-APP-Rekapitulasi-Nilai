@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard Dosen</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<title>Dashboard Dosen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #3f72af;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-radius: 0;
+            transition: margin-left 0.3s;
+        }
+        .navbar .logout {
+            float: right;
+            position: relative;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            margin-right: 40px;
+            background-color: #ff2c2c;
+            padding: 10px 20px;
+            color: #ffffff;
+            font-size: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+        }
+        .navbar .dashboard-container {
+            position: absolute;
+            left: 10px;
+            top: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            transition: left 0.3s;
+        }
+        .navbar .dashboard-container .dashboard-title {
+            font-size: 45px;
+            font-weight: lighter;
+            color: #f9f7f7;
+            margin-left: 100px;
+        }
+        .sidebar {
+            height: 100%;
+            width: 240px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #112d4e;
+            padding-top: 110px;
+            overflow-x: hidden;
+            transition: width 0.3s;
+            z-index: 999;
+        }
+        .sidebar a {
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #ccc;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #f9f7f7;
+            color: #112d4e;
+        }
+        .content {
+            transition: margin-left 0.3s;
+            margin-left: 240px;
+            padding: 20px;
+            margin-top: 70px;
+        }
+        .qr-code {
+            float: left;
+            background-color: #dbe2ef;
+            padding: 25px;
+            margin: 25px 0;
+            margin-right: 20px;
+        }
+        .qr-code img {
+            width: 130px;
+            height: 130px;
+        }
+        .profile-section {
+            display: flex;
+            align-items: center;
+            background-color: #dbe2ef;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+        }
+        .profile img {
+            width: 130px;
+            height: 130px;
+            background-color: #ccc;
+            margin-right: 20px;
+        }
+        .profile-info {
+            line-height: 1.5;
+        }
+        .profile-info h2 {
+            margin: 0 0 10px 0;
+        }
+        .table-container {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        #toggleSidebar {
+            position: fixed;
+            top: 10px;
+            left: 30px;
+            font-size: 25px;
+            cursor: pointer;
+            color: #f9f7f7;
+            z-index: 1001;
+        }
+        .button {
+            float: right;
+            position: relative;
+            margin-top: 15px;
+            padding: 6px 20px;
+            background-color: #3f72af;
+            color: #ffffff;
+            font-size: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <div class="dashboard-container" id="dashboardContainer">
+        <span class="dashboard-title">Dashboard</span>
+    </div>
+    <button class="logout" onclick="window.location.href='/loginpage.html'">Keluar</button>
+</div>
+<div class="sidebar" id="sidebar">
+    <a href="#">
+        <span class="glyphicon glyphicon-home" style="margin-right: 30px;"></span>Dashboard
+    </a>
+    <a href="#">
+        <span class="glyphicon glyphicon-user" style="margin-right: 30px;"></span>Profile Dosen
+    </a>
+    <a href="#">
+        <span class="glyphicon glyphicon-folder-close" style="margin-right: 30px;"></span>Mata Kuliah
+    </a>
+    <a href="#">
+        <span class="glyphicon glyphicon-cog" style="margin-right: 30px;"></span>Settings
+    </a>
+</div>
+<span id="toggleSidebar" class="glyphicon glyphicon-list"></span>
+<div class="content" id="mainContent">
+    <div class="qr-code">
+        <img src="https://www.researchgate.net/publication/332942465/figure/fig1/AS:763007793651712@1558926642965/QR-code-for-the-web-link.ppm" alt="QR Code">
+    </div>
+    <div class="profile-section">
+        <div class="profile">
+            <img src="https://www.transparentpng.com/thumb/user/gray-user-profile-icon-png-fP8Q1P.png">
+            <div class="profile-info">
+                <h2>Eka Nur Ferdiansyah</h2>
+                <p>23.01.4959</p>
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Mata Kuliah</th>
+                    <th>Prodi</th>
+                    <th>Kelas</th>
+                    <th>Semester</th>
+                    <th>Waktu</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Pemrograman Web(DT196)</td>
+                    <td>D3 Teknik Informatika</td>
+                    <td>01</td>
+                    <td>2</td>
+                    <td>Selasa, 15.30-17.10</td>
+                </tr>
+                <tr>
+                    <td>Pemrograman Web(DT196)</td>
+                    <td>D3 Teknik Informatika</td>
+                    <td>01</td>
+                    <td>2</td>
+                    <td>Selasa, 15.30-17.10</td>
+                </tr>
+                <tr>
+                    <td>Pemrograman Web(DT196)</td>
+                    <td>D3 Teknik Informatika</td>
+                    <td>01</td>
+                    <td>2</td>
+                    <td>Selasa, 15.30-17.10</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="button" onclick="window.location.href='/rekapdata.html'">Form Nilai</button>
+</div>
+<script>
+    var sidebarVisible = true;
+    document.getElementById('toggleSidebar').onclick = function() {
+        var sidebar = document.getElementById("sidebar");
+        var mainContent = document.getElementById('mainContent');
+        var toggleButton = document.getElementById('toggleSidebar');
+
+        if (sidebarVisible) {
+            sidebar.style.width = '0';
+            mainContent.style.marginLeft = '0';
+            toggleButton.className = 'glyphicon glyphicon-list';
+        } else {
+            sidebar.style.width = '240px';
+            mainContent.style.marginLeft = '240px';
+            toggleButton.className = 'glyphicon glyphicon-list';
+        }
+        sidebarVisible = !sidebarVisible;
+    };
+</script>
+</body>
+</html>

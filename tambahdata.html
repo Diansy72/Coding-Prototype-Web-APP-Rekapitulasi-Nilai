@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Rekap Data Mahasiswa</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<title>Rekap Data Mahasiswa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #3f72af;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-radius: 0;
+            transition: margin-left 0.3s;
+        }
+        .navbar .logout {
+            float: right;
+            position: relative;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            margin-right: 40px;
+            background-color: #ff2c2c;
+            padding: 10px 20px;
+            color: #ffffff;
+            font-size: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+        }
+        .navbar .dashboard-container {
+            position: absolute;
+            left: 10px;
+            top: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            transition: left 0.3s;
+        }
+        .navbar .dashboard-container .dashboard-title {
+            font-size: 45px;
+            font-weight: lighter;
+            color: #f9f7f7;
+            margin-left: 100px;
+        } 
+        .sidebar {
+            height: 100%;
+            width: 240px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #112d4e;
+            padding-top: 110px;
+            overflow-x: hidden;
+            transition: width 0.3s;
+            z-index: 999;
+        }
+        .sidebar a {
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #ccc;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #f9f7f7;
+            color: #112d4e;
+        }
+        .content {
+            transition: margin-left 0.3s;
+            margin-left: 240px;
+            padding: 20px;
+            margin-top: 70px; 
+        }
+        #toggleSidebar {
+            position: fixed;
+            top: 10px;
+            left: 30px;
+            font-size: 25px;
+            cursor: pointer;
+            color: #f9f7f7;
+            z-index: 1001;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 122px;
+            margin-top: 40px;
+            width: 100%;
+            max-width: 98%;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 50px;
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 25px;
+        }
+        .header a {
+            color: #3f72af;
+            font-size: 25px;
+            cursor: pointer;
+        }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        form div {
+            flex: 1;
+            min-width: 400px;
+            margin-bottom: 15px;
+            padding: 0 10px;
+            cursor: move;
+        }
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        form input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 0;
+        }
+        .button {
+            text-align: center;
+            margin-top: 100px;
+        }
+        .simpan-nilai {
+            background-color: #3f72af;
+            color: white; 
+            padding: 12px 400px; 
+            font-size: 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <div class="dashboard-container" id="dashboardContainer">
+        <span class="dashboard-title">Rekap Data Mahasiswa</span>
+    </div>
+    <button class="logout" onclick="window.location.href='/loginpage.html'">Keluar</button>
+</div>
+<div class="sidebar" id="sidebar">
+    <a href="#">
+        <span class="glyphicon glyphicon-home" style="margin-right: 30px;"></span>Dashboard
+    </a>
+    <a href="#">
+        <span class="glyphicon glyphicon-user" style="margin-right: 30px;"></span>Profile Dosen
+    </a>
+    <a href="#">
+        <span class="glyphicon glyphicon-folder-close" style="margin-right: 30px;"></span>Mata Kuliah
+    </a>
+    <a href="#">
+        <span class="glyphicon glyphicon-cog" style="margin-right: 30px;"></span>Settings
+    </a>
+</div>
+<span id="toggleSidebar" class="glyphicon glyphicon-list"></span>
+<div class="content" id="mainContent">
+    <div class="container">
+        <div class="header">
+            <h2>Rekap Hasil Nilai Mahasiswa</h2>
+            <a class="edit" onclick="clearForm()">Edit</a>
+        </div>
+        <form id="form">
+            <div class="resizable draggable" draggable="true">
+                <label for="nama-mahasiswa">Nama Mahasiswa</label>
+                <input type="text" id="nama-mahasiswa" name="nama-mahasiswa" placeholder="Masukkan Nama Lengkap">
+            </div>
+            <div class="resizable draggable" draggable="true">
+                <label for="nim">NIM</label>
+                <input type="text" id="nim" name="nim" placeholder="Masukkan Nim">
+            </div>
+            <div class="resizable draggable" draggable="true">
+                <label for="kehadiran">Kehadiran</label>
+                <input type="text" id="kehadiran" name="kehadiran" placeholder="Masukkan Jumlah Kehadiran">
+            </div>
+            <div class="resizable draggable" draggable="true">
+                <label for="tugas">Tugas</label>
+                <input type="text" id="tugas" name="tugas" placeholder="Masukkan Nilai Tugas">
+            </div>
+            <div class="resizable draggable" draggable="true">
+                <label for="responsi">Responsi</label>
+                <input type="text" id="responsi" name="responsi" placeholder="Masukkan Nilai Responsi">
+            </div>
+            <div class="resizable draggable" draggable="true">
+                <label for="uts">UTS</label>
+                <input type="text" id="uts" name="uts" placeholder="Masukkan Nilai UTS">
+            </div>
+            <div class="resizable draggable" draggable="true">
+                <label for="uas">UAS</label>
+                <input type="text" id="uas" name="uas" placeholder="Masukkan Nilai UAS">
+            </div>
+            <div class="resizable draggable" draggable="true">
+                <label for="nilai">Nilai</label>
+                <input type="text" id="nilai" name="nilai" placeholder="Masukkan Total Nilai">
+            </div> 
+        </form>
+    </div>
+<div class="button">
+    <button class="simpan-nilai" href="simpan">Simpan</button>
+</div>
+<script>
+    var sidebarVisible = true;
+    document.getElementById('toggleSidebar').onclick = function() {
+        var sidebar = document.getElementById("sidebar");
+        var mainContent = document.getElementById('mainContent');
+        var toggleButton = document.getElementById('toggleSidebar');
+
+        if (sidebarVisible) {
+            sidebar.style.width = '0';
+            mainContent.style.marginLeft = '0';
+            toggleButton.className = 'glyphicon glyphicon-list';
+        } else {
+            sidebar.style.width = '240px';
+            mainContent.style.marginLeft = '240px';
+            toggleButton.className = 'glyphicon glyphicon-list';
+        }
+        sidebarVisible = !sidebarVisible;
+    };
+
+    function clearForm() {
+        var Form = document.getElementById("form");
+        form.reset();
+    }
+</script>
+</body>
+</html>

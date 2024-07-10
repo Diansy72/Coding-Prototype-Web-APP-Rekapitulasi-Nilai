@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<title>Halaman Login Dosen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #3f72af;
+        }
+        .left, .right {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .right {
+            background: url("studying vector image.jpg") no-repeat center;
+            background-size: cover;
+        }
+        .login-container {
+            padding: 50px;
+            background-color: #f9f7f7;
+            border-radius: 10px;
+            text-align: center;
+            width: 60%;
+        }
+        .login-container img {
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+        }
+        .login-container h1 {
+            margin: 50px;
+        }
+        .login-container input[type="text"], 
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 1px 0 10px 0;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+        }
+        .login-container .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+            position: relative;
+        }
+        .login-container .password-container .toggle-password {
+            position: absolute;
+            top: 60%;
+            right: 15px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        .login-container .remember-me {
+            display: flex;
+            margin-top: -20px;
+        }
+        .login-container .remember-me input[type="checkbox"] {
+            margin-right: 5px;
+            margin-bottom: 10px;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            margin: 20px 0;
+            margin-bottom: 30px;
+            background-color: #dbe2ef;
+            border: none;
+            color: #080808;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="left">
+        <div class="login-container">
+            <img src="https://amikom.ac.id/public/docs/2016/logo_amikom_full_color.png" alt="Logo">
+            <h1>Halaman Login Dosen</h1>
+            <form action="/login" method="post">
+                <div class="form-group">
+                    <label for="nid">Nomor induk dosen</label>
+                    <input type="text" name="nid" placeholder="Nomor Induk Dosen" required>
+                </div>
+                <div class="form-group password-container">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Password" required>
+                    <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+                </div>
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Ingat saya diperangkat ini</label>
+                </div>
+                <button type="button" onclick="window.location.href='/dashboard.html'">Login</button>
+            </form>
+            <p>Belum Punya Akun? <a href="/registerpage.html">Daftar sekarang.</a></p>
+        </div>
+    </div>
+    <div class="right"></div>
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordField = document.getElementById('password');
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+</body>
+</html>
